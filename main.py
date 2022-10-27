@@ -9,9 +9,6 @@ import pathlib
 import functions
 import pickle
 
-#reference frame
-
-
 dataset_path = "/home/rodriguez/Documents/FaceMoCap_ML_Project/Data FaceMoCap/Sujets Sains"
 
 ref_csv =  sorted(str(p) for p in pathlib.Path(dataset_path).glob("*.csv"))
@@ -33,21 +30,3 @@ list_ds_int_fix_dental_disp = functions.displacement_list(list_ds_int_fix_dental
 with open('list_ds_int_fix_dental_disp.pkl', 'wb') as file:
     pickle.dump(list_ds_int_fix_dental_disp, file)
 
-#%%
-import pickle
-import functions
-import numpy as np
-
-with open('list_ds_int_fix_dental_disp.pkl', 'rb') as file:
-    list_ds_int_fix_dental_disp = pickle.load(file)
-    
-list_means_int_fix_disp = functions.compute_mean(list_ds_int_fix_dental_disp)
-
-list_std_int_fix_disp = functions.compute_std(list_ds_int_fix_dental_disp)
-
-for i in range(5):
-    filename_mean = "mean_M" + str(i+1) + ".csv" 
-    filename_std = "std_M" + str(i+1) + ".csv" 
-    np.savetxt(filename_mean, list_means_int_fix_disp[i], delimiter=",")
-    np.savetxt(filename_std, list_std_int_fix_disp[i], delimiter=",") 
-    
