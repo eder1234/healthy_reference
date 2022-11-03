@@ -146,7 +146,7 @@ def dental_frame(list_ds):
         list_dental_frame.append(list_np_dental_samples)
     return list_dental_frame
 
-def displacement_list(list_ds_dental):
+def displacement_list(list_ds_dental, norm = False): #experimental
     list_ds_displacement = []
     for list_M in list_ds_dental:
         list_M_disp = []
@@ -158,7 +158,10 @@ def displacement_list(list_ds_dental):
                     Xt = np.array([np_sample[i][3*j], np_sample[i][3*j + 1], np_sample[i][3*j + 2]])
                     dt = np.linalg.norm(X0 - Xt)
                     np_sample_disp[i][j] = dt
-            list_M_disp.append(np_sample_disp)
+            if norm:
+                list_M_disp.append(np_sample_disp / np.nanmax(np_sample_disp))
+            else:
+                list_M_disp.append(np_sample_disp)
         list_ds_displacement.append(list_M_disp)
     return list_ds_displacement
 
